@@ -18,7 +18,7 @@ source:
 build:
   number: 0
   # crashes with `gcc.exe: error: x64: No such file or directory`
-  skip: true  # [win]
+  skip: true  # [win32]
   rpaths:
     - lib/R/lib/
     - lib/
