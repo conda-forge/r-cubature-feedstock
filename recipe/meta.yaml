@@ -18,7 +18,7 @@ source:
 build:
   number: 0
   # crashes with `gcc.exe: error: x64: No such file or directory`
-  skip: true  # [win]
+  skip: true  # [win32]
   rpaths:
     - lib/R/lib/
     - lib/
@@ -48,8 +48,7 @@ about:
     integration over hypercubes. This version provides both hcubature and pcubature
     routines in addition to a vector interface that results in substantial speed gains.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}\/lib\/R\/share\/licenses\/GPL-3'  # [unix]
-  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
+  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
 extra:
    recipe-maintainers:
     - MathiasHaudgaard
