@@ -16,7 +16,8 @@ source:
   sha256: e4cca932af6255b448ceffe86966cc892379b0b8486d905fb9f84eb1d11aa2c1
 
 build:
-  number: 0
+  merge_build_host: True  # [win]
+  number: 1
   # crashes with `gcc.exe: error: x64: No such file or directory`
   skip: true  # [win32]
   rpaths:
@@ -25,16 +26,18 @@ build:
 
 requirements:
   build:
+    - posix                # [win]
+    - {{ compiler('c') }}        # [unix]
+    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('cxx') }}        # [unix]
+    - {{ compiler('m2w64_cxx') }}  # [win]
+  host:
     - r-base
     - r-rcpp
-    - posix                # [win]
-    - {{native}}toolchain  # [win]
-    - gcc                  # [not win]
 
   run:
     - r-base
     - r-rcpp
-    - libgcc  # [not win]
 
 test:
   commands:
