@@ -1,5 +1,4 @@
-{% set version = "1.4" %}
-
+{% set version = '1.4' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,15 +9,13 @@ package:
 source:
   fn: cubature_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/cubature_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/cubature/cubature_{{ version }}.tar.gz
-
+    - {{ cran_mirror }}/src/contrib/cubature_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/cubature/cubature_{{ version }}.tar.gz
   sha256: e4cca932af6255b448ceffe86966cc892379b0b8486d905fb9f84eb1d11aa2c1
 
 build:
   merge_build_host: True  # [win]
-  number: 1
-  # crashes with `gcc.exe: error: x64: No such file or directory`
+  number: 2
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
@@ -26,34 +23,39 @@ build:
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ compiler('cxx') }}        # [unix]
-    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('cxx') }}      # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
     - r-rcpp
-
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
     - r-rcpp
 
 test:
   commands:
-    - $R -e "library('cubature')"  # [not win]
+    - $R -e "library('cubature')"           # [not win]
     - "\"%R%\" -e \"library('cubature')\""  # [win]
 
 about:
-  home: https://cran.r-project.org/web/packages/cubature/index.html
+  home: https://github.com/bnaras/cubature
   license: GPL-3
   summary: R wrapper around the cubature C library of Steven G. Johnson for adaptive multivariate
     integration over hypercubes. This version provides both hcubature and pcubature
     routines in addition to a vector interface that results in substantial speed gains.
   license_family: GPL3
-  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
+
 extra:
-   recipe-maintainers:
+  recipe-maintainers:
     - MathiasHaudgaard
     - FrodePedersen
     - ArneKr
@@ -61,3 +63,5 @@ extra:
     - bgruening
     - daler
     - jdblischak
+    - cbrueffer
+    - dbast
