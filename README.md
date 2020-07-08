@@ -5,7 +5,7 @@ Home: https://github.com/bnaras/cubature
 
 Package license: GPL-3
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: R wrapper around the cubature C library of Steven G. Johnson for adaptive multivariate integration over hypercubes. This version provides both hcubature and pcubature routines in addition to a vector interface that results in substantial speed gains.
 
