@@ -7,7 +7,6 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: cubature_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/cubature_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/cubature/cubature_{{ version }}.tar.gz
@@ -24,14 +23,21 @@ requirements:
   build:
     - cross-r-base {{ r_base }}  # [build_platform != target_platform]
     - r-rcpp                     # [build_platform != target_platform]
-    - gnuconfig  # [unix]
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('cxx') }}      # [not win]
+    - gnuconfig                  # [unix]
+    - {{ compiler('c') }}              # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
-    - {{ compiler('m2w64_cxx') }}        # [win]
+    - {{ compiler('cxx') }}            # [not win]
+    - {{ compiler('m2w64_cxx') }}      # [win]
+    - {{ compiler('fortran') }}        # [not win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
     - {{ posix }}filesystem        # [win]
-    - {{ posix }}make
     - {{ posix }}sed               # [win]
+    - {{ posix }}grep              # [win]
+    - {{ posix }}autoconf
+    - {{ posix }}automake          # [not win]
+    - {{ posix }}automake-wrapper  # [win]
+    - {{ posix }}pkg-config
+    - {{ posix }}make
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
   host:
@@ -49,10 +55,11 @@ test:
 
 about:
   home: https://github.com/bnaras/cubature
-  license: GPL-3
+  license: GPL-3.0-only
   summary: R wrapper around the cubature C library of Steven G. Johnson for adaptive multivariate integration over hypercubes. This version provides both hcubature and pcubature routines in addition to a vector interface that results in substantial speed gains.
   license_family: GPL3
-  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
