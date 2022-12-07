@@ -1,8 +1,9 @@
 #!/bin/bash
-if [[ $target_platform =~ linux.* ]] || [[ $target_platform == win-32 ]] || [[ $target_platform == win-64 ]] || [[ $target_platform == osx-64 ]]; then
-  export DISABLE_AUTOBREW=1
-  $R CMD INSTALL --build .
-else
-  mkdir -p $PREFIX/lib/R/library/cubature
-  mv * $PREFIX/lib/R/library/cubature
-fi
+
+export DISABLE_AUTOBREW=1
+
+# get updated config.guess and config.sub
+cp $BUILD_PREFIX/share/gnuconfig/config.{sub,guess} src/Cuba-4.2/.
+
+# shellcheck disable=SC2086
+${R} CMD INSTALL --build . ${R_ARGS}
