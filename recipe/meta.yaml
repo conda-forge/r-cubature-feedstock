@@ -1,4 +1,4 @@
-{% set version = "2.0.4.6" %}
+{% set version = "2.1.0" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/cubature_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/cubature/cubature_{{ version }}.tar.gz
-  sha256: 330c9dc2be9bf6815473fd40efa8c2de47c1ed286cb097d0ff846b56c9e9f95a
+  sha256: 5d82785609611200d5bea069b93b0bf75bafec808f7eeef7b052eb516f273665
 
 build:
   merge_build_host: true  # [win]
