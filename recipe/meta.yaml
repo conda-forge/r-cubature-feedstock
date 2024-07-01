@@ -1,6 +1,5 @@
 {% set version = "2.0.4.6" %}
 {% set posix = 'm2-' if win else '' %}
-{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-cubature
@@ -13,8 +12,7 @@ source:
   sha256: 330c9dc2be9bf6815473fd40efa8c2de47c1ed286cb097d0ff846b56c9e9f95a
 
 build:
-  merge_build_host: true  # [win]
-  number: 1
+  number: 2
   rpaths:
     - lib/R/lib/
     - lib/
@@ -25,7 +23,9 @@ requirements:
     - r-rcpp                     # [build_platform != target_platform]
     - gnuconfig                  # [unix]
     - {{ compiler('c') }}              # [not win]
+    - {{ stdlib("c") }}                # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
+    - {{ stdlib("m2w64_c") }}          # [win]
     - {{ compiler('cxx') }}            # [not win]
     - {{ compiler('m2w64_cxx') }}      # [win]
     - {{ compiler('fortran') }}        # [not win]
@@ -45,7 +45,6 @@ requirements:
     - r-rcpp
   run:
     - r-base
-    - {{ native }}gcc-libs         # [win]
     - r-rcpp
 
 test:
