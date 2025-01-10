@@ -12,7 +12,7 @@ source:
   sha256: 330c9dc2be9bf6815473fd40efa8c2de47c1ed286cb097d0ff846b56c9e9f95a
 
 build:
-  number: 2
+  number: 3
   rpaths:
     - lib/R/lib/
     - lib/
@@ -56,7 +56,6 @@ about:
   home: https://github.com/bnaras/cubature
   license: GPL-3.0-only
   summary: R wrapper around the cubature C library of Steven G. Johnson for adaptive multivariate integration over hypercubes. This version provides both hcubature and pcubature routines in addition to a vector interface that results in substantial speed gains.
-  license_family: GPL3
   license_file:
     - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
