@@ -1,4 +1,4 @@
-{% set version = "2.0.4.6" %}
+{% set version = "2.1.2" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,10 +9,10 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/cubature_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/cubature/cubature_{{ version }}.tar.gz
-  sha256: 330c9dc2be9bf6815473fd40efa8c2de47c1ed286cb097d0ff846b56c9e9f95a
+  sha256: b43237c299c54e87681e83fa865941b058b0a1f8fff9dfa53bc5db7cf6002016
 
 build:
-  number: 3
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
