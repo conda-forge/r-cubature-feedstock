@@ -2,7 +2,15 @@
 
 export DISABLE_AUTOBREW=1
 
-export CC17=${CC}
+mkdir -p ~/.R
+echo -e "CC=$CC
+FC=$FC
+CXX=$CXX
+CXX98=$CXX
+CXX11=$CXX
+CXX14=$CXX
+CXX17=$CXX
+CC17=$CC" > ~/.R/Makevars
 
 # shellcheck disable=SC2086
 ${R} CMD INSTALL --build . ${R_ARGS}
