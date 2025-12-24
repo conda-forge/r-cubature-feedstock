@@ -2,10 +2,6 @@
 
 export DISABLE_AUTOBREW=1
 
-# get updated config.guess and config.sub
-cp $BUILD_PREFIX/share/gnuconfig/config.{sub,guess} src/Cuba-4.2/.
-
-# This package requires CC17, which isn't defined by default
 mkdir -p ~/.R
 echo -e "CC=$CC
 FC=$FC
